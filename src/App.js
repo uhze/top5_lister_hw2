@@ -111,6 +111,8 @@ class App extends React.Component {
             currentList: newCurrentList,
             sessionData: prevState.sessionData
         }), () => {
+            
+            
             // ANY AFTER EFFECTS?
         });
     }
@@ -158,7 +160,7 @@ class App extends React.Component {
                     renameListCallback={this.renameList}
                 />
                 <Workspace
-                    currentList={this.state.currentList} />
+                    currentList={this.state.currentList}/>
                 <Statusbar 
                     currentList={this.state.currentList} />
                 <DeleteModal
