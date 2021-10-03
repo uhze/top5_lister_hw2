@@ -10,6 +10,7 @@ import Banner from './components/Banner.js'
 import Sidebar from './components/Sidebar.js'
 import Workspace from './components/Workspace.js';
 import Statusbar from './components/Statusbar.js'
+import ListCard from './components/ListCard.js';
 
 class App extends React.Component {
     constructor(props) {
