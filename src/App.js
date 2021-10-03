@@ -165,6 +165,8 @@ class App extends React.Component {
                     currentList={this.state.currentList} />
                 <DeleteModal
                     hideDeleteListModalCallback={this.hideDeleteListModal}
+                    currentList = {this.state.currentList}
+                    listKeyPair = {this.state.sessionData.keyNamePairs}
                 />
             </div>
         );
