@@ -1,26 +1,5 @@
 import React from "react";
 export default class Workspace extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            text: this.props.items,
-            editActive: false,
-        }
-    }
-    handleClick = (event) => {
-        if (event.detail === 1) {
-            this.handleLoadList(event);
-        }
-        else if (event.detail === 2) {
-            this.handleToggleEdit(event);
-        }
-    }
-
-    handleToggleEdit = (event) => {
-        this.setState({
-            editActive: !this.state.editActive
-        });
-    }
 
     render() {
         const {currentList} = this.props;
