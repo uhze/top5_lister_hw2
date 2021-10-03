@@ -126,12 +126,38 @@ class App extends React.Component {
             // ANY AFTER EFFECTS?
         });
     }
-    deleteList = () => {
+    deleteList = (keyNamePair) => {
         // SOMEHOW YOU ARE GOING TO HAVE TO FIGURE OUT
         // WHICH LIST IT IS THAT THE USER WANTS TO
         // DELETE AND MAKE THAT CONNECTION SO THAT THE
         // NAME PROPERLY DISPLAYS INSIDE THE MODAL
+        this.loadList(keyNamePair.key);
         this.showDeleteListModal();
+        
+    }
+
+    confirmDeleteList = (key) => {
+        let newKeyNamePairs = [...this.state.sessionData.keyNamePairs];
+        for (let i = 0; i < newKeyNamePairs.length; i++) {
+            let pair = newKeyNamePairs[i];
+            if (pair.key === key) {
+                this.db.mutationDeleteList(this.db.queryGetList(key));
+            }
+        }
+        
+        this.setState(prevState => ({
+            currentList: prevState.currentList,
+            sessionData: {
+                nextKey: prevState.sessionData.nextKey,
+                counter: prevState.sessionData.counter,
+                keyNamePairs: newKeyNamePairs
+            }
+        }), () => {
+            this.sortKeyNamePairsByName(newKeyNamePairs);
+            this.db.mutationUpdateSessionData(this.state.sessionData);
+            this.hideDeleteListModal();
+
+        });
     }
     // THIS FUNCTION SHOWS THE MODAL FOR PROMPTING THE USER
     // TO SEE IF THEY REALLY WANT TO DELETE THE LIST
@@ -167,6 +193,7 @@ class App extends React.Component {
                     hideDeleteListModalCallback={this.hideDeleteListModal}
                     currentList = {this.state.currentList}
                     listKeyPair = {this.state.sessionData.keyNamePairs}
+                    deleteListCallback = {this.confirmDeleteList}
                 />
             </div>
         );
