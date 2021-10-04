@@ -24,7 +24,8 @@ class App extends React.Component {
         // SETUP THE INITIAL STATE
         this.state = {
             currentList : null,
-            sessionData : loadedSessionData
+            sessionData : loadedSessionData,
+            //confirmed:false
         }
     }
     sortKeyNamePairsByName = (keyNamePairs) => {
@@ -134,25 +135,34 @@ class App extends React.Component {
         this.loadList(keyNamePair.key);
         this.showDeleteListModal();
         
+        this.confirmDeleteList(keyNamePair.key);
+        this.showDeleteListModal();
+        
     }
-
+    //actually deletes the list 
     confirmDeleteList = (key) => {
         let newKeyNamePairs = [...this.state.sessionData.keyNamePairs];
         for (let i = 0; i < newKeyNamePairs.length; i++) {
             let pair = newKeyNamePairs[i];
             if (pair.key === key) {
-                this.db.mutationDeleteList(this.db.queryGetList(key));
+                this.db.mutationDeleteList(key);
+                this.showDeleteListModal();
+                //delete newKeyNamePairs[key];
+                newKeyNamePairs.splice(i, 1);
             }
         }
         
+        this.closeCurrentList();
         this.setState(prevState => ({
             currentList: prevState.currentList,
             sessionData: {
-                nextKey: prevState.sessionData.nextKey,
-                counter: prevState.sessionData.counter,
-                keyNamePairs: newKeyNamePairs
+                keyNamePairs: newKeyNamePairs,
+                listKeyPairMarkedForDeletion : key+1,
+                sessionData: this.state.sessionData,
+                confirmed:true,
             }
         }), () => {
+            this.db.mutationDeleteList(key);
             this.sortKeyNamePairsByName(newKeyNamePairs);
             this.db.mutationUpdateSessionData(this.state.sessionData);
             this.hideDeleteListModal();

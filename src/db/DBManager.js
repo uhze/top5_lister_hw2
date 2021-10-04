@@ -31,8 +31,8 @@ export default class DBManager {
         localStorage.setItem("top5-list-" + list.key, listString);
     }
 
-    mutationDeleteList = (list)=>{
-        localStorage.removeItem("top5-list-" + list.key);
+    mutationDeleteList = (key)=>{
+        localStorage.removeItem("top5-list-" + key);
     }
     
     mutationUpdateSessionData = (sessionData) => {
