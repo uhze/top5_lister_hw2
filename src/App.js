@@ -105,6 +105,20 @@ class App extends React.Component {
             this.db.mutationUpdateSessionData(this.state.sessionData);
         });
     }
+    undo = () =>{
+        this.setState(prevState => ({
+            sessionData: prevState.sessionData
+        }));
+    }
+
+    redo = () =>{
+        this.setState(prevState => ({
+            sessionData: {
+                nextKey: prevState.sessionData.nextKey+1,
+                counter: prevState.sessionData.counter+1,
+            }
+        }))
+    }
     // THIS FUNCTION BEGINS THE PROCESS OF LOADING A LIST FOR EDITING
     loadList = (key) => {
         let newCurrentList = this.db.queryGetList(key);
@@ -185,7 +199,9 @@ class App extends React.Component {
             <div id="app-root">
                 <Banner 
                     title='Top 5 Lister'
-                    closeCallback={this.closeCurrentList} />
+                    closeCallback={this.closeCurrentList} 
+                    undoCallback = {this.undo}
+                    redoCallback = {this.redo}/>
                 <Sidebar
                     heading='Your Lists'
                     currentList={this.state.currentList}
