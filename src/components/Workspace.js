@@ -4,7 +4,7 @@ export default class Workspace extends React.Component {
         super(props);
 
         this.state = {
-            text: "",
+            text: this.props.items,
             editActive: false,
         }
     }
@@ -13,24 +13,30 @@ export default class Workspace extends React.Component {
             this.handleToggleEdit(event);
         }
         else if (event.detail === 2) {
-            
+            this.handleToggleEdit(event);
             this.handleUpdate(event);
+
         }
     }
     handleToggleEdit = (event) => {
+        
         this.setState({
             editActive: !this.state.editActive
         });
+        this.handleUpdate(event);
     }
     handleUpdate = (event) => {
-        this.setState({ text: event.target.value });
+        if(this.state.editActive === true){
+            this.setState({ text: event.target.value });
+        }
     }
+        
     handleDrag = (event) =>{
         
     }
 
     render() {
-        const {currentList} = this.props;
+        const {currentList, keyNamePair} = this.props;
         let itemsList =[];
         if(this.props.currentList == null){
             itemsList[0]="";
@@ -53,22 +59,14 @@ export default class Workspace extends React.Component {
                         <div className="item-number">4.</div>
                         <div className="item-number">5.</div>
                     </div>
+                    
                     <div id = "edit-items">
-                        <div className="top5-item"
-                        onClick={this.handleClick}
-                        onDrag={this.handleDrag}>{itemsList[0]}</div>
-                        <div className="top5-item"
-                        onClick={this.handleClick}
-                        onDrag={this.handleDrag}>{itemsList[1]}</div>
-                        <div className="top5-item"
-                        onClick={this.handleClick}
-                        onDrag={this.handleDrag}>{itemsList[2]}</div>
-                        <div className="top5-item"
-                        onClick={this.handleClick}
-                        onDrag={this.handleDrag}>{itemsList[3]}</div>
-                        <div className="top5-item"
-                        onClick={this.handleClick}
-                        onDrag={this.handleDrag}>{itemsList[4]}</div>
+                    
+                        <div className="top5-item" id = "0" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[0]}</div>
+                        <div className="top5-item" id = "1" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[1]}</div>
+                        <div className="top5-item" id = "2" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[2]}</div>
+                        <div className="top5-item" id = "3" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[3]}</div>
+                        <div className="top5-item" id = "4" onDoubleClick={this.handleClick}onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[4]}</div>
                     </div>
                 </div>
             </div>
