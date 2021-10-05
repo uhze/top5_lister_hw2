@@ -105,12 +105,31 @@ class App extends React.Component {
             this.db.mutationUpdateSessionData(this.state.sessionData);
         });
     }
+
+    editItems =(key, newItem) =>{
+        let currentList = [this.currentList];
+        // NOW GO THROUGH THE ARRAY AND FIND THE ONE TO RENAME
+        for (let i = 0; i < currentList.length; i++) {
+            let pair = currentList[i];
+            if (currentList.indexOf(pair) === key) {
+                currentList[pair] = newItem;
+            }
+        }
+        this.setState(prevState => ({
+            currentList: prevState.currentList,
+            sessionData: prevState.sessionData,
+            
+        }))
+    }
+
+    //undo sets state to previous state
     undo = () =>{
         this.setState(prevState => ({
             sessionData: prevState.sessionData
         }));
     }
 
+    //redo sets session data to next increment 
     redo = () =>{
         this.setState(prevState => ({
             sessionData: {
@@ -138,9 +157,17 @@ class App extends React.Component {
             listKeyPairMarkedForDeletion : prevState.listKeyPairMarkedForDeletion,
             sessionData: this.state.sessionData
         }), () => {
+            if(this.state.currentList === null){
+                
+            }
+            else{
+
+            }
             // ANY AFTER EFFECTS?
         });
     }
+    
+    //delete list will route to confirmDeleteList which updates sessionData
     deleteList = (keyNamePair) => {
         // SOMEHOW YOU ARE GOING TO HAVE TO FIGURE OUT
         // WHICH LIST IT IS THAT THE USER WANTS TO
@@ -149,7 +176,7 @@ class App extends React.Component {
         this.loadList(keyNamePair.key);
         this.showDeleteListModal();
         
-        this.confirmDeleteList(keyNamePair.key);
+        //this.confirmDeleteList(keyNamePair.key);
         this.showDeleteListModal();
         
     }
@@ -161,7 +188,6 @@ class App extends React.Component {
             if (pair.key === key) {
                 this.db.mutationDeleteList(key);
                 this.showDeleteListModal();
-                //delete newKeyNamePairs[key];
                 newKeyNamePairs.splice(i, 1);
             }
         }
@@ -212,7 +238,8 @@ class App extends React.Component {
                     renameListCallback={this.renameList}
                 />
                 <Workspace
-                    currentList={this.state.currentList}/>
+                    currentList={this.state.currentList}
+                    editItemsCallback ={this.editItems}/>
                 <Statusbar 
                     currentList={this.state.currentList} />
                 <DeleteModal

@@ -29,6 +29,9 @@ export default class Workspace extends React.Component {
         if(this.state.editActive === true){
             this.setState({ text: event.target.value });
         }
+        let key = event.target
+        let text = event.target.value;
+        this.props.editItemsCallback(key,text )
     }
         
     handleDrag = (event) =>{
@@ -36,7 +39,7 @@ export default class Workspace extends React.Component {
     }
 
     render() {
-        const {currentList, keyNamePair} = this.props;
+        const {editItemsCallback} = this.props;
         let itemsList =[];
         if(this.props.currentList == null){
             itemsList[0]="";
@@ -61,12 +64,11 @@ export default class Workspace extends React.Component {
                     </div>
                     
                     <div id = "edit-items">
-                    
-                        <div className="top5-item" id = "0" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[0]}</div>
-                        <div className="top5-item" id = "1" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[1]}</div>
-                        <div className="top5-item" id = "2" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[2]}</div>
-                        <div className="top5-item" id = "3" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[3]}</div>
-                        <div className="top5-item" id = "4" onDoubleClick={this.handleClick}onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag}>{itemsList[4]}</div>
+                        <div className="top5-item" id = "0" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[0]}</div>
+                        <div className="top5-item" id = "1" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[1]}</div>
+                        <div className="top5-item" id = "2" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[2]}</div>
+                        <div className="top5-item" id = "3" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[3]}</div>
+                        <div className="top5-item" id = "4" onDoubleClick={this.handleClick}onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[4]}</div>
                     </div>
                 </div>
             </div>
