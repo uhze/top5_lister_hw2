@@ -113,12 +113,14 @@ class App extends React.Component {
             let pair = currentList[i];
             if (currentList.indexOf(pair) === key) {
                 currentList[pair] = newItem;
+                //document.getElementById("top5-item"+i).append(newItem);
             }
+           //document.getElementById(i).append(newItem);
         }
+        
         this.setState(prevState => ({
             currentList: prevState.currentList,
             sessionData: prevState.sessionData,
-            
         }))
     }
 

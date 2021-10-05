@@ -31,7 +31,7 @@ export default class Workspace extends React.Component {
         }
         let key = event.target
         let text = event.target.value;
-        this.props.editItemsCallback(key,text )
+        this.props.editItemsCallback(key,event.target.value )
     }
         
     handleDrag = (event) =>{
@@ -64,11 +64,48 @@ export default class Workspace extends React.Component {
                     </div>
                     
                     <div id = "edit-items">
-                        <div className="top5-item" id = "0" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[0]}</div>
-                        <div className="top5-item" id = "1" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[1]}</div>
-                        <div className="top5-item" id = "2" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[2]}</div>
-                        <div className="top5-item" id = "3" onDoubleClick={this.handleClick} onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[3]}</div>
-                        <div className="top5-item" id = "4" onDoubleClick={this.handleClick}onClick={this.handleClick} draggable = {true} onDrag={this.handleDrag} editItemsCallback ={editItemsCallback}>{itemsList[4]}</div>
+                        
+                        <div className="top5-item" 
+                            id = "0" 
+                            onDoubleClick={this.handleClick} 
+                            onClick={this.handleClick} 
+                            draggable = {true} 
+                            onDrag={this.handleDrag} 
+                            editItemsCallback ={editItemsCallback}
+                            ><input type="text" id = "0" value={itemsList[0]} ondblclick={this.handleClick}/></div>
+                        <div className="top5-item" 
+                            id = "1" onDoubleClick={this.handleClick} 
+                            onClick={this.handleClick} 
+                            onDoubleClick={this.handleClick} 
+                            draggable = {true} 
+                            onDrag={this.handleDrag} 
+                            editItemsCallback ={editItemsCallback}
+                            
+                            ><input type="text" value={itemsList[1]}  ondblclick={this.handleClick}/></div>
+                        <div className="top5-item" 
+                        id = "2" 
+                        onDoubleClick={this.handleClick} 
+                        onClick={this.handleClick} 
+                        draggable = {true} 
+                        onDrag={this.handleDrag} 
+                        editItemsCallback ={editItemsCallback}  
+                        ><input type="text" value={itemsList[2]}  ondblclick={this.handleClick}/></div>
+                        <div className="top5-item" 
+                        id = "3" 
+                        onDoubleClick={this.handleClick} 
+                        onClick={this.handleClick} 
+                        draggable = {true} 
+                        onDrag={this.handleDrag} 
+                        editItemsCallback ={editItemsCallback}
+                        ><input type="text" value={itemsList[3]}  ondblclick={this.handleClick}/></div>
+                        <div className="top5-item" 
+                        id = "4" 
+                        onDoubleClick={this.handleClick}
+                        onClick={this.handleClick} 
+                        draggable = {true} 
+                        onDrag={this.handleDrag} 
+                        editItemsCallback ={editItemsCallback}
+                        ><input type="text" value={itemsList[4]}  ondblclick={this.handleClick}/></div>
                     </div>
                 </div>
             </div>
